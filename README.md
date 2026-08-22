@@ -106,3 +106,28 @@ betting model is plain pari-mutuel: two running totals and one mapping per side.
 - Ritual Chain docs — <https://docs.ritualfoundation.org>
 - dApp skills — <https://github.com/ritual-foundation/ritual-dapp-skills>
 - Explorer — <https://explorer.ritualfoundation.org> · Faucet — <https://faucet.ritualfoundation.org>
+## Builder Notes: Following the Money
+
+After understanding the resolution flow, I wanted to see what actually
+happens to the funds after a market resolves.
+
+The workshop uses a pull-based payout model, which I found interesting because
+resolution does not need to pay every participant in the same transaction.
+
+Instead, the market is resolved first and individual users claim what they
+are entitled to afterward.
+
+The payout is proportional to the user's share of the winning pool.
+
+The part that took me the longest to understand was the difference between a normal NO result and an Invalid market.
+
+
+NO means that a valid oracle value was obtained and failed the market
+condition.
+
+Invalid means that the market could not obtain the information needed to
+resolve it.
+
+Those two states should not have the same financial outcome.
+
+Following the payout and refund paths made that distinction much clearer to me.
